@@ -53,7 +53,7 @@ const Header = () => {
 	const navItems = [
 		{ id: "hero", label: "Home" },
 		{ id: "about", label: "About" },
-		{ id: "features", label: "Features" },
+		// { id: "features", label: "Features" },
 		{ id: "services", label: "Services" },
 		{ id: "pricing", label: "Pricing" },
 		{ id: "contact", label: "Contact" },
@@ -80,7 +80,6 @@ const Header = () => {
 
 				<nav id="navmenu" className="navmenu ">
 					<ul className="mx-5">
-						
 						{navItems.map((item) => (
 							<li key={item.id}>
 								<a
