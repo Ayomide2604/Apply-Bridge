@@ -12,7 +12,7 @@ const Hero = () => {
 							data-aos-delay="200"
 						>
 							<div className="company-badge mb-4">
-								<span className="mr-3">Save Time on Job Applications</span>
+								<span className="mx-3">Save Time on Job Applications</span>
 								<FaBell />
 							</div>
 
