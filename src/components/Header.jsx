@@ -89,6 +89,8 @@ const Header = () => {
 									href={`#${item.id}`}
 									className={activeSection === item.id ? "active" : ""}
 									ref={(el) => (navRefs.current[item.id] = el)}
+									onClick={() => setMenuOpen(false)}
+									style={{ textDecoration: "none" }}
 								>
 									{item.label}
 								</a>
