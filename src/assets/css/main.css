@@ -561,6 +561,10 @@ h6 {
 	color: var(--accent-color);
 }
 
+.footer .footer-links ul a:hover {
+	color: var(--accent-color);
+}
+
 .footer .footer-contact p {
 	margin-bottom: 5px;
 }
@@ -2343,4 +2347,118 @@ section,
 --------------------------------------------------------------*/
 .starter-section {
 	/* Add your styles here */
+}
+
+/*--------------------------------------------------------------
+# Subscription Modal
+--------------------------------------------------------------*/
+.modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 9999;
+}
+
+.modal-content {
+	background-color: #ffffff;
+	padding: 2rem;
+	border-radius: 1rem;
+	width: 90%;
+	max-width: 500px;
+	max-height: 90vh;
+	overflow-y: auto;
+	position: relative;
+	z-index: 10000;
+	color: #212529;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 1.5rem;
+	border-bottom: 1px solid #eee;
+	padding-bottom: 1rem;
+}
+
+.modal-header h3 {
+	color: #212529;
+	font-size: 1.5rem;
+	font-weight: 600;
+	margin: 0;
+}
+
+.close-button {
+	background: none;
+	border: none;
+	font-size: 1.5rem;
+	cursor: pointer;
+	padding: 0.5rem;
+	color: #212529;
+}
+
+.subscription-form {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.form-group {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.form-label {
+	display: block;
+	margin-bottom: 0.5rem;
+	font-weight: 500;
+	color: #212529;
+}
+
+.form-control {
+	padding: 0.75rem;
+	border: 1px solid #ddd;
+	border-radius: 0.5rem;
+	font-size: 1rem;
+	width: 100%;
+	color: #212529;
+	background-color: #ffffff;
+}
+
+.form-control:disabled {
+	background-color: #f5f5f5;
+	cursor: not-allowed;
+	color: #6c757d;
+}
+
+.form-control::placeholder {
+	color: #6c757d;
+}
+
+.form-actions {
+	margin-top: 1rem;
+}
+
+.btn-primary {
+	width: 100%;
+	padding: 0.75rem;
+	background-color: var(--accent-color);
+	color: white;
+	border: none;
+	border-radius: 0.5rem;
+	cursor: pointer;
+	font-size: 1rem;
+	transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+	background-color: color-mix(in srgb, var(--accent-color), transparent 15%);
 }
