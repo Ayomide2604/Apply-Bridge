@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FaTimes } from "react-icons/fa";
+import { usePaystackPayment } from "react-paystack";
 
 const SubscriptionModal = ({ isOpen, onClose, selectedPlan }) => {
 	const [formData, setFormData] = useState({
@@ -17,11 +18,49 @@ const SubscriptionModal = ({ isOpen, onClose, selectedPlan }) => {
 		}));
 	};
 
+	// Get plan price based on selected plan
+	const getPlanPrice = (plan) => {
+		switch (plan) {
+			case "Basic":
+				return 100000; // ₦100,000
+			case "Standard":
+				return 125000; // ₦125,000
+			case "Premium":
+				return 150000; // ₦150,000
+			default:
+				return 0;
+		}
+	};
+
+	const config = {
+		reference: new Date().getTime().toString(),
+		email: formData.email,
+		amount: getPlanPrice(selectedPlan) * 100, // Convert to kobo
+		publicKey: import.meta.env.VITE_PAYSTACK_TEST_KEY,
+		metadata: {
+			name: formData.name,
+			phone: formData.phone,
+			plan: selectedPlan,
+			comment: formData.comment,
+		},
+	};
+
+	const initializePayment = usePaystackPayment(config);
+
+	const onSuccess = (reference) => {
+		// Implementation for whatever you want to do with reference and after success call.
+		console.log("Payment successful!", reference);
+		onClose();
+	};
+
+	const onPaymentClose = () => {
+		// Implementation for whatever you want to do when the Paystack dialog closed.
+		console.log("Payment cancelled");
+	};
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		// Handle form submission here
-		console.log("Form submitted:", { ...formData, plan: selectedPlan });
-		onClose();
+		initializePayment(onSuccess, onPaymentClose);
 	};
 
 	if (!isOpen) return null;
@@ -54,7 +93,9 @@ const SubscriptionModal = ({ isOpen, onClose, selectedPlan }) => {
 						<input
 							type="text"
 							id="plan"
-							value={`${selectedPlan} Plan`}
+							value={`${selectedPlan} Plan - ₦${getPlanPrice(
+								selectedPlan
+							).toLocaleString()}`}
 							disabled
 							className="form-control"
 							style={{ backgroundColor: "#f5f5f5", color: "#6c757d" }}
@@ -137,7 +178,7 @@ const SubscriptionModal = ({ isOpen, onClose, selectedPlan }) => {
 					</div>
 					<div className="form-actions">
 						<button type="submit" className="btn btn-primary">
-							Subscribe Now
+							Pay ₦{getPlanPrice(selectedPlan).toLocaleString()}
 						</button>
 					</div>
 				</form>
