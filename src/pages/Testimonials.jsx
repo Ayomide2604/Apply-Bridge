@@ -1,4 +1,9 @@
 import Testimonial from "../components/Testimonial";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Autoplay, Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 // import image from "../assets/img/default.jpg";
 
 const testimonialData = [
@@ -31,6 +36,7 @@ const testimonialData = [
 			"Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.",
 	},
 ];
+
 const Testimonials = () => {
 	return (
 		<section
@@ -45,23 +51,41 @@ const Testimonials = () => {
 				</p>
 			</div>
 
-			<div className="container">
-				<div className="row g-5">
+			<div className="container" data-aos="fade-up" data-aos-delay="100">
+				<Swiper
+					modules={[Pagination, Autoplay, Navigation]}
+					spaceBetween={30}
+					slidesPerView={1}
+					pagination={{ clickable: true }}
+					navigation={true}
+					loop
+					autoplay={{
+						delay: 5000,
+						disableOnInteraction: false,
+					}}
+					breakpoints={{
+						640: {
+							slidesPerView: 1,
+						},
+						768: {
+							slidesPerView: 2,
+						},
+						1024: {
+							slidesPerView: 3,
+						},
+					}}
+					className="testimonials-slider"
+				>
 					{testimonialData.map((testimonial) => (
-						<div
-							className="col-lg-6 mb-3"
-							data-aos="fade-up"
-							data-aos-delay="100"
-							key={testimonial.id}
-						>
+						<SwiperSlide key={testimonial.id}>
 							<Testimonial
 								image={testimonial.image}
 								name={testimonial.name}
 								testimonial={testimonial.testimonial}
 							/>
-						</div>
+						</SwiperSlide>
 					))}
-				</div>
+				</Swiper>
 			</div>
 		</section>
 	);
