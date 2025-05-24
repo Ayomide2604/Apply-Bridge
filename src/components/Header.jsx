@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import logo from "../assets/img/site-logo.png";
+import { Link } from "react-router-dom";
 
 const Header = () => {
 	const [menuOpen, setMenuOpen] = useState(false);
@@ -64,10 +65,7 @@ const Header = () => {
 			className="header d-flex align-items-center fixed-top container"
 		>
 			<div className="header-container container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
-				<a
-					href="index.html"
-					className="logo d-flex align-items-center me-auto me-xl-0"
-				>
+				<Link to="/" className="logo d-flex align-items-center me-auto me-xl-0">
 					{/* Uncomment to use Logo */}
 					<img
 						src={logo}
@@ -78,11 +76,10 @@ const Header = () => {
 							height: "auto",
 						}}
 					/>
-					{/* <h1 className="sitename">ApplyBridge</h1> */}
-				</a>
+				</Link>
 
-				<nav id="navmenu" className="navmenu mr-5">
-					<ul>
+				<nav id="navmenu" className="navmenu ">
+					<ul className="mx-5">
 						{navItems.map((item) => (
 							<li key={item.id}>
 								<a
