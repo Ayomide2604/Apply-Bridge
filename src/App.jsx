@@ -6,6 +6,7 @@ import Contact from "./pages/Contact";
 import Faq from "./pages/Faq";
 import Testimonials from "./pages/Testimonials";
 import About from "./pages/About";
+import Services from "./pages/Services";
 
 function App() {
 	return (
@@ -15,6 +16,7 @@ function App() {
 				<Hero />
 				<About />
 				{/* <Testimonials /> */}
+				<Services />
 				<Pricing />
 				<Faq />
 				<Contact />
