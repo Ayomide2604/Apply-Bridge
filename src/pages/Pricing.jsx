@@ -105,8 +105,8 @@ const Pricing = () => {
 			<div className="container section-title" data-aos="fade-up">
 				<h2>Pricing</h2>
 				<p>
-					Necessitatibus eius consequatur ex aliquid fuga eum quidem sint
-					consectetur velit
+					Choose the perfect plan to accelerate your job search journey with our
+					professional application assistance.
 				</p>
 			</div>
 
