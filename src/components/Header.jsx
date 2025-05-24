@@ -37,7 +37,7 @@ const Header = () => {
 					{/* <h1 className="sitename">ApplyBridge</h1> */}
 				</a>
 
-				<nav id="navmenu" className="navmenu ">
+				<nav id="navmenu" className="navmenu mr-5 ">
 					<ul>
 						<li>
 							<a href="#hero" className="active">
