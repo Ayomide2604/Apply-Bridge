@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import PriceCard from "../components/PriceCard";
 
 const prices = [
@@ -43,12 +43,63 @@ const prices = [
 		],
 	},
 ];
+
 const Pricing = () => {
 	const [activePricing, setActivePricing] = useState("Standard");
+	const [isMobile, setIsMobile] = useState(window.innerWidth < 992);
+	const pricingRefs = useRef([]);
+
+	useEffect(() => {
+		const handleResize = () => {
+			setIsMobile(window.innerWidth < 992);
+		};
+
+		window.addEventListener("resize", handleResize);
+		return () => window.removeEventListener("resize", handleResize);
+	}, []);
+
+	useEffect(() => {
+		if (!isMobile) {
+			setActivePricing("Standard");
+			return;
+		}
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						const pricingTitle =
+							entry.target.getAttribute("data-pricing-title");
+						setActivePricing(pricingTitle);
+					}
+				});
+			},
+			{
+				root: null,
+				rootMargin: "0px",
+				threshold: 0.5,
+			}
+		);
+
+		pricingRefs.current.forEach((ref) => {
+			if (ref) {
+				observer.observe(ref);
+			}
+		});
+
+		return () => {
+			pricingRefs.current.forEach((ref) => {
+				if (ref) {
+					observer.unobserve(ref);
+				}
+			});
+		};
+	}, [isMobile]);
 
 	const handleActivePricing = (pricing) => {
 		setActivePricing(pricing);
 	};
+
 	return (
 		<section id="pricing" className="pricing section">
 			<div className="container section-title" data-aos="fade-up">
@@ -61,7 +112,7 @@ const Pricing = () => {
 
 			<div className="container" data-aos="fade-up" data-aos-delay="100">
 				<div className="row g-4 justify-content-center">
-					{prices.map((price) => (
+					{prices.map((price, index) => (
 						<div
 							className="col-lg-4 mb-5"
 							data-aos="fade-up"
@@ -71,6 +122,8 @@ const Pricing = () => {
 								handleActivePricing(price.title);
 							}}
 							style={{ cursor: "pointer" }}
+							ref={(el) => (pricingRefs.current[index] = el)}
+							data-pricing-title={price.title}
 						>
 							<div
 								className={`pricing-card ${
