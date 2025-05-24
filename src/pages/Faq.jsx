@@ -122,48 +122,6 @@ const Faq = () => {
 					</div>
 				</div>
 			</div>
-			<style jsx>{`
-				.grid-container {
-					display: grid;
-					grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-					gap: 1rem;
-					margin: 1rem 0;
-					max-height: 0;
-					overflow: hidden;
-					transition: max-height 0.3s ease-out;
-				}
-				.faq-active .grid-container {
-					max-height: 1000px;
-					transition: max-height 0.5s ease-in;
-				}
-				.grid-item {
-					background: #f8f9fa;
-					padding: 1rem;
-					border-radius: 8px;
-					box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-					transition: transform 0.2s ease;
-					opacity: 0;
-					transform: translateY(-10px);
-				}
-				.faq-active .grid-item {
-					opacity: 1;
-					transform: translateY(0);
-					transition: opacity 0.3s ease, transform 0.3s ease;
-				}
-				.grid-item:hover {
-					transform: translateY(-2px);
-					box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-				}
-				.faq-content {
-					max-height: 0;
-					overflow: hidden;
-					transition: max-height 0.3s ease-out;
-				}
-				.faq-active .faq-content {
-					max-height: 1000px;
-					transition: max-height 0.5s ease-in;
-				}
-			`}</style>
 		</section>
 	);
 };

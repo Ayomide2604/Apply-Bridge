@@ -1966,25 +1966,24 @@ section,
 }
 
 .faq .faq-container .faq-item .faq-content {
-	display: grid;
-	grid-template-rows: 0fr;
-	transition: 0.3s ease-in-out;
-	visibility: hidden;
-	opacity: 0;
+	max-height: 0;
+	overflow: hidden;
+	transition: max-height 0.3s ease-out;
 }
 
 .faq .faq-container .faq-item .faq-content p {
 	margin-bottom: 0;
-	overflow: hidden;
 }
 
 .faq .faq-container .faq-item .faq-toggle {
 	position: absolute;
-	top: 20px;
-	right: 20px;
-	font-size: 16px;
-	line-height: 0;
-	transition: 0.3s;
+	right: 0;
+	top: 0;
+	width: 30px;
+	height: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	cursor: pointer;
 }
 
@@ -1997,15 +1996,45 @@ section,
 }
 
 .faq .faq-container .faq-active .faq-content {
-	grid-template-rows: 1fr;
-	visibility: visible;
-	opacity: 1;
-	padding-top: 10px;
+	max-height: 1000px;
+	transition: max-height 0.5s ease-in;
 }
 
-.faq .faq-container .faq-active .faq-toggle {
-	transform: rotate(90deg);
-	color: var(--accent-color);
+/* Grid styles for FAQ answers */
+.faq .grid-container {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: 1rem;
+	margin: 1rem 0;
+	max-height: 0;
+	overflow: hidden;
+	transition: max-height 0.3s ease-out;
+}
+
+.faq .faq-active .grid-container {
+	max-height: 1000px;
+	transition: max-height 0.5s ease-in;
+}
+
+.faq .grid-item {
+	background: #f8f9fa;
+	padding: 1rem;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+	transition: transform 0.2s ease;
+	opacity: 0;
+	transform: translateY(-10px);
+}
+
+.faq .faq-active .grid-item {
+	opacity: 1;
+	transform: translateY(0);
+	transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.faq .grid-item:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /*--------------------------------------------------------------
