@@ -1,8 +1,42 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import logo from "../assets/img/site-logo.png";
+
 const Header = () => {
 	const [menuOpen, setMenuOpen] = useState(false);
+	const [activeSection, setActiveSection] = useState("hero");
+	const navRefs = useRef({});
+
+	useEffect(() => {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						const sectionId = entry.target.id;
+						setActiveSection(sectionId);
+					}
+				});
+			},
+			{
+				root: null,
+				rootMargin: "-50% 0px",
+				threshold: 0,
+			}
+		);
+
+		// Observe all sections
+		const sections = document.querySelectorAll("section[id]");
+		sections.forEach((section) => {
+			observer.observe(section);
+		});
+
+		return () => {
+			sections.forEach((section) => {
+				observer.unobserve(section);
+			});
+		};
+	}, []);
+
 	const handleMenuToggle = () => {
 		setMenuOpen(!menuOpen);
 	};
@@ -14,6 +48,16 @@ const Header = () => {
 			document.body.classList.remove("mobile-nav-active");
 		}
 	}, [menuOpen]);
+
+	const navItems = [
+		{ id: "hero", label: "Home" },
+		{ id: "about", label: "About" },
+		{ id: "features", label: "Features" },
+		{ id: "services", label: "Services" },
+		{ id: "pricing", label: "Pricing" },
+		{ id: "contact", label: "Contact" },
+	];
+
 	return (
 		<header
 			id="header"
@@ -37,38 +81,29 @@ const Header = () => {
 					{/* <h1 className="sitename">ApplyBridge</h1> */}
 				</a>
 
-				<nav id="navmenu" className="navmenu mr-5 ">
+				<nav id="navmenu" className="navmenu mr-5">
 					<ul>
-						<li>
-							<a href="#hero" className="active">
-								Home
-							</a>
-						</li>
-						<li>
-							<a href="#about">About</a>
-						</li>
-						<li>
-							<a href="#features">Features</a>
-						</li>
-						<li>
-							<a href="#services">Services</a>
-						</li>
-						<li>
-							<a href="#pricing">Pricing</a>
-						</li>
-						<li>
-							<a href="#contact">Contact</a>
-						</li>
+						{navItems.map((item) => (
+							<li key={item.id}>
+								<a
+									href={`#${item.id}`}
+									className={activeSection === item.id ? "active" : ""}
+									ref={(el) => (navRefs.current[item.id] = el)}
+								>
+									{item.label}
+								</a>
+							</li>
+						))}
 					</ul>
 
 					{menuOpen ? (
 						<FaTimes
-							className="mobile-nav-toggle d-lg-none "
+							className="mobile-nav-toggle d-lg-none"
 							onClick={handleMenuToggle}
 						/>
 					) : (
 						<FaBars
-							className="mobile-nav-toggle d-lg-none "
+							className="mobile-nav-toggle d-lg-none"
 							onClick={handleMenuToggle}
 						/>
 					)}
