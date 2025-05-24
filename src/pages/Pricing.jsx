@@ -7,7 +7,7 @@ const prices = [
 		title: "Basic",
 		description:
 			"Get started with our basic job application service. Perfect for those looking to apply to a few jobs each month.",
-		price: 3000,
+		price: 100000,
 		features: [
 			"50 Applications per month",
 			"Basic CV review",
@@ -20,7 +20,7 @@ const prices = [
 		title: "Standard",
 		description:
 			"Our most popular plan for active job seekers. Get more applications and better support.",
-		price: 5000,
+		price: 125000,
 		features: [
 			"100 Applications per month",
 			"Enhanced CV review",
@@ -34,7 +34,7 @@ const prices = [
 		title: "Premium",
 		description:
 			"Maximum applications with premium support. Best for serious job seekers.",
-		price: 8000,
+		price: 150000,
 		features: [
 			"150 Applications per month",
 			"Premium CV review",
