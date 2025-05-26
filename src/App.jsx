@@ -7,6 +7,7 @@ import Faq from "./pages/Faq";
 import Testimonials from "./pages/Testimonials";
 import About from "./pages/About";
 import Services from "./pages/Services";
+import WhatsAppButton from "./components/WhatsAppButton";
 
 function App() {
 	return (
@@ -22,6 +23,7 @@ function App() {
 				<Contact />
 			</main>
 			<Footer />
+			<WhatsAppButton />
 		</>
 	);
 }
