@@ -32,7 +32,7 @@ const Hero = () => {
 
 							<div className="hero-buttons">
 								<a href="#about" className="btn btn-primary me-0 me-sm-2 mx-1">
-									Search Jobs
+									Learn More
 								</a>
 							</div>
 						</div>

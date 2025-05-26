@@ -4,6 +4,7 @@ const Service = ({ icon: Icon, title, description }) => {
 			className="col-lg-6"
 			data-aos="fade-up"
 			data-aos-delay={title === "CV Optimization" ? "100" : "200"}
+			style={{ cursor: "pointer" }}
 		>
 			<div className="service-card d-flex">
 				<div className="icon flex-shrink-0">

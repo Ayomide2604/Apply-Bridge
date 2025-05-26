@@ -17,7 +17,7 @@ const PriceCard = ({ id, title, description, price, features, popular }) => {
 			<h3>{title} Plan</h3>
 			<div className="price">
 				<span className="amount">₦{formatNumber(price)}</span>
-				<span className="period">/ month</span>
+				{/* <span className="period">/ month</span> */}
 			</div>
 			<p className="description">{description}</p>
 
@@ -25,7 +25,7 @@ const PriceCard = ({ id, title, description, price, features, popular }) => {
 			<ul className="features-list">
 				{features?.map((feature) => (
 					<li key={feature}>
-						<FaCheckCircle className="mr-2" />
+						<FaCheckCircle className="mx-2" />
 						{feature}
 					</li>
 				))}

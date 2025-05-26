@@ -77,10 +77,15 @@ const SubscriptionModal = ({ isOpen, onClose, selectedPlan }) => {
 
 	return (
 		<div className="modal-overlay">
-			<div className="container">
+			<div className="container d-flex justify-content-center align-items-center min-vh-100">
 				<div
 					className="modal-content"
-					style={{ backgroundColor: "#ffffff", color: "#000000" }}
+					style={{
+						backgroundColor: "#ffffff",
+						color: "#000000",
+						maxWidth: "600px",
+						width: "100%",
+					}}
 				>
 					<div className="modal-header">
 						<h3 style={{ color: "#000000" }}>{selectedPlan} Plan</h3>
