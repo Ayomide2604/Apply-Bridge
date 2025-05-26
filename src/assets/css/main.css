@@ -287,7 +287,8 @@ h6 {
 		left: 14px;
 		top: 130%;
 		opacity: 0;
-		transition: 0.3s;
+		transform: translateY(10px);
+		transition: all 0.3s ease;
 		border-radius: 4px;
 		z-index: 99;
 		box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
@@ -318,6 +319,7 @@ h6 {
 		opacity: 1;
 		top: 100%;
 		visibility: visible;
+		transform: translateY(0);
 	}
 
 	.navmenu .dropdown .dropdown ul {
@@ -423,16 +425,14 @@ h6 {
 		background-color: var(--nav-dropdown-background-color);
 		border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
 		box-shadow: none;
-		transition: all 0.5s ease-in-out;
-	}
-
-	.navmenu .dropdown ul ul {
-		background-color: rgba(33, 37, 41, 0.1);
+		transform: translateY(0);
+		transition: all 0.3s ease-in-out;
 	}
 
 	.navmenu .dropdown > .dropdown-active {
 		display: block;
 		background-color: rgba(33, 37, 41, 0.03);
+		animation: fadeIn 0.3s ease-in-out;
 	}
 
 	.mobile-nav-active {
@@ -459,6 +459,17 @@ h6 {
 
 	.mobile-nav-active .navmenu > ul {
 		display: block;
+	}
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(-10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
 	}
 }
 
@@ -731,6 +742,20 @@ section,
 		color-mix(in srgb, var(--accent-color), transparent 98%) 25%,
 		transparent 50%
 	);
+	animation: gradientShift 15s ease infinite;
+	background-size: 200% 200%;
+}
+
+@keyframes gradientShift {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
 }
 
 .hero::before {
@@ -746,11 +771,36 @@ section,
 		transparent 40%
 	);
 	pointer-events: none;
+	animation: pulseGlow 8s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+	0%,
+	100% {
+		opacity: 0.8;
+		transform: scale(1);
+	}
+	50% {
+		opacity: 1;
+		transform: scale(1.05);
+	}
 }
 
 .hero .hero-content {
 	position: relative;
 	z-index: 1;
+	animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }
 
 .hero .hero-content h1 {
@@ -1717,19 +1767,18 @@ section,
 	background: var(--surface-color);
 	border-radius: 10px;
 	transition: all 0.3s ease;
+	transform: translateY(0);
 }
 
 .services .service-card:hover {
-	box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
+	transform: translateY(-10px);
+	box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
 .services .service-card:hover .icon {
 	background: var(--accent-color);
 	color: var(--contrast-color);
-}
-
-.services .service-card:hover .read-more {
-	color: color-mix(in srgb, var(--accent-color), transparent 25%);
+	transform: scale(1.1);
 }
 
 .services .service-card .icon {
@@ -1786,17 +1835,24 @@ section,
 	padding: 2rem;
 	background: var(--surface-color);
 	border-radius: 1rem;
-	transition: all 0.3s ease;
+	transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+	transform: scale(1);
 	position: relative;
 }
 
 .pricing .pricing-card:hover {
-	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+	transform: scale(1.03);
+	box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
 }
 
 .pricing .pricing-card.popular {
 	background: var(--accent-color);
 	color: var(--contrast-color);
+	transform: scale(1.05);
+}
+
+.pricing .pricing-card.popular:hover {
+	transform: scale(1.08);
 }
 
 .pricing .pricing-card.popular h3,
@@ -1839,6 +1895,11 @@ section,
 	font-size: 0.875rem;
 	font-weight: 600;
 	box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.08);
+	transition: all 0.3s ease;
+}
+
+.pricing .pricing-card:hover .popular-badge {
+	transform: translateX(-50%) translateY(-5px);
 }
 
 .pricing .pricing-card h3 {
@@ -1944,10 +2005,13 @@ section,
 	margin-bottom: 15px;
 	border-radius: 10px;
 	overflow: hidden;
+	transition: all 0.3s ease;
+	border: 1px solid transparent;
 }
 
-.faq .faq-container .faq-item:last-child {
-	margin-bottom: 0;
+.faq .faq-container .faq-item:hover {
+	border-color: color-mix(in srgb, var(--accent-color), transparent 80%);
+	transform: translateX(5px);
 }
 
 .faq .faq-container .faq-item h3 {
@@ -1955,29 +2019,18 @@ section,
 	font-size: 16px;
 	line-height: 24px;
 	margin: 0 30px 0 0;
-	transition: 0.3s;
+	transition: all 0.3s ease;
 	cursor: pointer;
 	display: flex;
 	align-items: center;
 }
 
-.faq .faq-container .faq-item h3 .num {
-	color: var(--accent-color);
-	padding-right: 5px;
-}
-
-.faq .faq-container .faq-item h3:hover {
-	color: var(--accent-color);
-}
-
 .faq .faq-container .faq-item .faq-content {
 	max-height: 0;
 	overflow: hidden;
-	transition: max-height 0.3s ease-out;
-}
-
-.faq .faq-container .faq-item .faq-content p {
-	margin-bottom: 0;
+	transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+	opacity: 0;
+	transform: translateY(-10px);
 }
 
 .faq .faq-container .faq-item .faq-toggle {
@@ -1990,10 +2043,15 @@ section,
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
+	transition: all 0.3s ease;
 }
 
-.faq .faq-container .faq-item .faq-toggle:hover {
-	color: var(--accent-color);
+.faq .faq-container .faq-item .faq-toggle i {
+	transition: transform 0.3s ease;
+}
+
+.faq .faq-container .faq-active {
+	background-color: color-mix(in srgb, var(--accent-color), transparent 95%);
 }
 
 .faq .faq-container .faq-active h3 {
@@ -2002,7 +2060,14 @@ section,
 
 .faq .faq-container .faq-active .faq-content {
 	max-height: 1000px;
-	transition: max-height 0.5s ease-in;
+	opacity: 1;
+	transform: translateY(0);
+	margin-top: 15px;
+}
+
+.faq .faq-container .faq-active .faq-toggle i {
+	transform: rotate(180deg);
+	color: var(--accent-color);
 }
 
 /* Grid styles for FAQ answers */
@@ -2200,21 +2265,32 @@ section,
 .contact .contact-form .form-control,
 .contact .contact-form .form-select {
 	padding: 0.875rem 1.25rem;
-	border-color: color-mix(in srgb, var(--default-color), transparent 90%);
+	border: 2px solid color-mix(in srgb, var(--default-color), transparent 90%);
 	border-radius: 0.5rem;
 	background-color: color-mix(in srgb, var(--surface-color) 90%, white 5%);
 	color: var(--default-color);
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	transform: translateY(0);
 }
 
 .contact .contact-form .form-control:focus,
 .contact .contact-form .form-select:focus {
-	box-shadow: none;
+	box-shadow: 0 5px 15px rgba(13, 131, 253, 0.1);
 	border-color: var(--accent-color);
+	transform: translateY(-2px);
+	background-color: var(--surface-color);
 }
 
 .contact .contact-form .form-control::placeholder,
 .contact .contact-form .form-select::placeholder {
 	color: color-mix(in srgb, var(--default-color), transparent 50%);
+	transition: all 0.3s ease;
+}
+
+.contact .contact-form .form-control:focus::placeholder,
+.contact .contact-form .form-select:focus::placeholder {
+	opacity: 0;
+	transform: translateX(10px);
 }
 
 .contact .contact-form .btn {
@@ -2225,11 +2301,8 @@ section,
 	display: inline-flex;
 	align-items: center;
 	gap: 0.5rem;
-	transition: 0.3s;
-}
-
-.contact .contact-form .btn i {
-	font-size: 1.25rem;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	transform: translateY(0);
 }
 
 .contact .contact-form .btn:hover {
@@ -2238,6 +2311,12 @@ section,
 		var(--accent-color),
 		var(--contrast-color) 20%
 	);
+	transform: translateY(-2px);
+	box-shadow: 0 5px 15px rgba(13, 131, 253, 0.2);
+}
+
+.contact .contact-form .btn:active {
+	transform: translateY(0);
 }
 
 /*--------------------------------------------------------------
@@ -2513,11 +2592,13 @@ section,
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 	transition: transform 0.3s ease;
 	z-index: 9999;
+	animation: float 3s ease-in-out infinite;
 }
 
 .whatsapp-button:hover {
 	transform: scale(1.1);
 	color: white !important;
+	animation-play-state: paused;
 }
 
 .whatsapp-icon {
@@ -2733,4 +2814,73 @@ section,
 	50% {
 		opacity: 0;
 	}
+}
+
+@keyframes float {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-10px);
+	}
+}
+
+.loading-spinner {
+	width: 40px;
+	height: 40px;
+	border: 3px solid color-mix(in srgb, var(--accent-color), transparent 80%);
+	border-top-color: var(--accent-color);
+	border-radius: 50%;
+	animation: spin 1s linear infinite;
+}
+
+.loading-spinner.small {
+	width: 24px;
+	height: 24px;
+	border-width: 2px;
+}
+
+.loading-spinner.large {
+	width: 60px;
+	height: 60px;
+	border-width: 4px;
+}
+
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.loading-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(255, 255, 255, 0.9);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 9999;
+	opacity: 0;
+	visibility: hidden;
+	transition: all 0.3s ease;
+}
+
+.loading-overlay.active {
+	opacity: 1;
+	visibility: visible;
+}
+
+.loading-overlay .loading-spinner {
+	transform: scale(0.8);
+	opacity: 0;
+	transition: all 0.3s ease;
+}
+
+.loading-overlay.active .loading-spinner {
+	transform: scale(1);
+	opacity: 1;
 }
