@@ -2502,7 +2502,7 @@ section,
 	bottom: 20px;
 	right: 20px;
 	background-color: #25d366;
-	color: white;
+	color: white !important;
 	width: 60px;
 	height: 60px;
 	border-radius: 50%;
@@ -2517,6 +2517,7 @@ section,
 
 .whatsapp-button:hover {
 	transform: scale(1.1);
+	color: white !important;
 }
 
 .whatsapp-icon {
