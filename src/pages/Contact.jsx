@@ -48,7 +48,14 @@ const Contact = () => {
 								</div>
 								<div className="content">
 									<h4>Phone Number</h4>
-									<p>+234 812 666 0484</p>
+									<p>
+										<a
+											href="tel:+2348126660484"
+											style={{ textDecoration: "none" }}
+										>
+											+234 812 666 0484
+										</a>
+									</p>
 								</div>
 							</div>
 
@@ -62,7 +69,14 @@ const Contact = () => {
 								</div>
 								<div className="content">
 									<h4>Email Address</h4>
-									<p>applybridgeco@gmail.com</p>
+									<p>
+										<a
+											href="mailto:applybridgeco@gmail.com"
+											style={{ textDecoration: "none" }}
+										>
+											applybridgeco@gmail.com
+										</a>
+									</p>
 								</div>
 							</div>
 						</div>

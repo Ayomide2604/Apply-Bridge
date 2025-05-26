@@ -1,4 +1,4 @@
-import { FaEnvelope, FaFacebook, FaLinkedin } from "react-icons/fa";
+import { FaEnvelope, FaLinkedin, FaXTwitter } from "react-icons/fa6";
 const Footer = () => {
 	return (
 		<footer id="footer" className="footer">
@@ -12,14 +12,18 @@ const Footer = () => {
 				</p>
 
 				<div className="social-links d-flex justify-content-center">
-					<a href="">
-						<FaFacebook />
-					</a>
-					<a href="mailto:applybridgeco@gmail.com">
-						<FaEnvelope />
+					<a
+						href="https://x.com/ApplyBridgeHQ"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						<FaXTwitter />
 					</a>
 					<a href="">
 						<FaLinkedin />
+					</a>
+					<a href="mailto:applybridgeco@gmail.com">
+						<FaEnvelope />
 					</a>
 				</div>
 			</div>

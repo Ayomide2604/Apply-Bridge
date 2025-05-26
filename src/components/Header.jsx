@@ -56,7 +56,7 @@ const Header = () => {
 		// { id: "features", label: "Features" },
 		{ id: "services", label: "Services" },
 		{ id: "pricing", label: "Pricing" },
-		{ id: "contact", label: "Contact" },
+		{ id: "contact", label: "Contact", isButton: true },
 	];
 
 	return (
@@ -84,10 +84,33 @@ const Header = () => {
 							<li key={item.id}>
 								<a
 									href={`#${item.id}`}
-									className={activeSection === item.id ? "active" : ""}
+									className={`${activeSection === item.id ? "active" : ""} ${
+										item.isButton ? "contact-button" : ""
+									}`}
 									ref={(el) => (navRefs.current[item.id] = el)}
-									onClick={() => setMenuOpen(false)}
-									style={{ textDecoration: "none" }}
+									onClick={(e) => {
+										e.preventDefault();
+										const element = document.getElementById(item.id);
+										if (element) {
+											element.scrollIntoView({ behavior: "smooth" });
+											setMenuOpen(false);
+										}
+									}}
+									style={{
+										textDecoration: "none",
+										...(item.isButton && {
+											backgroundColor: "#0d83fd",
+											color: "white",
+											padding:
+												window.innerWidth < 992 ? "6px 15px" : "8px 20px",
+											borderRadius: "50px",
+											transition: "all 0.3s ease",
+											marginLeft: window.innerWidth < 992 ? "10px" : "15px",
+											marginRight: window.innerWidth < 992 ? "10px" : "0",
+											marginTop: window.innerWidth < 992 ? "10px" : "0",
+											display: "inline-block",
+										}),
+									}}
 								>
 									{item.label}
 								</a>

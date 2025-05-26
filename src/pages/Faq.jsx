@@ -17,9 +17,9 @@ const faqs = [
 		question: "What services does ApplyBridge offer?",
 		answer: `
 				<div class="grid-container">
-					<div class="grid-item">Professional CV review and enhancement</div>
-					<div class="grid-item">Expert supporting statement writing</div>
-					<div class="grid-item">Job application guidance and support</div>
+					<div class="grid-item">✓ Professional CV review and enhancement</div>
+					<div class="grid-item">✓ Expert supporting statement writing</div>
+					<div class="grid-item">✓ Job application guidance and support</div>
 				</div>
 				
 				We focus on helping you present your best self to potential employers through 
@@ -31,10 +31,10 @@ const faqs = [
 		question: "How can ApplyBridge help with my job applications?",
 		answer: `
 				<div class="grid-container">
-					<div class="grid-item">Reviewing and improving your CV to highlight your strengths</div>
-					<div class="grid-item">Writing compelling supporting statements that showcase your experience</div>
-					<div class="grid-item">Providing guidance on how to effectively present your skills and qualifications</div>
-					<div class="grid-item">Helping you create applications that stand out to employers</div>
+					<div class="grid-item">✓ Reviewing and improving your CV to highlight your strengths</div>
+					<div class="grid-item">✓ Writing compelling supporting statements that showcase your experience</div>
+					<div class="grid-item">✓ Providing guidance on how to effectively present your skills and qualifications</div>
+					<div class="grid-item">✓ Helping you create applications that stand out to employers</div>
 				</div>
 				
 				Our expertise helps reduce the stress of application writing and increases your chances of success.
@@ -45,11 +45,11 @@ const faqs = [
 		question: "What makes ApplyBridge's CV review service special?",
 		answer: `
 				<div class="grid-container">
-					<div class="grid-item">Expert analysis of your current CV</div>
-					<div class="grid-item">Suggestions for improvement and enhancement</div>
-					<div class="grid-item">Focus on highlighting your key achievements</div>
-					<div class="grid-item">Tailored recommendations for your specific industry</div>
-					<div class="grid-item">Professional formatting and presentation advice</div>
+					<div class="grid-item">✓ Expert analysis of your current CV</div>
+					<div class="grid-item">✓ Suggestions for improvement and enhancement</div>
+					<div class="grid-item">✓ Focus on highlighting your key achievements</div>
+					<div class="grid-item">✓ Tailored recommendations for your specific industry</div>
+					<div class="grid-item">✓ Professional formatting and presentation advice</div>
 				</div>
 				`,
 	},
@@ -58,10 +58,10 @@ const faqs = [
 		question: "How does the supporting statement service work?",
 		answer: `
 				<div class="grid-container">
-					<div class="grid-item">Effectively communicate your experience and skills</div>
-					<div class="grid-item">Address key job requirements and criteria</div>
-					<div class="grid-item">Present your achievements in a clear, professional manner</div>
-					<div class="grid-item">Demonstrate your suitability for the role</div>
+					<div class="grid-item">✓ Effectively communicate your experience and skills</div>
+					<div class="grid-item">✓ Address key job requirements and criteria</div>
+					<div class="grid-item">✓ Present your achievements in a clear, professional manner</div>
+					<div class="grid-item">✓ Demonstrate your suitability for the role</div>
 				</div>
 				
 				We work with you to ensure your supporting statement accurately represents your 
@@ -81,10 +81,11 @@ const Faq = () => {
 			<div className="container">
 				<div className="row">
 					<div className="col-lg-5" data-aos="fade-up">
-						<h2 className="faq-title">Frequently Asked questions</h2>
+						<h2 className="faq-title">Frequently Asked Questions</h2>
 						<p className="faq-description">
-							Maecenas tempus tellus eget condimentum rhoncus sem quam semper
-							libero sit amet adipiscing sem neque sed ipsum.
+							Find answers to common questions about our services and how we can
+							help you achieve your career goals. If you have any other
+							questions, feel free to contact us.
 						</p>
 					</div>
 
