@@ -2,7 +2,12 @@ import { useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import { usePaystackPayment } from "react-paystack";
 
-const SubscriptionModal = ({ isOpen, onClose, selectedPlan }) => {
+const SubscriptionModal = ({
+	isOpen,
+	onClose,
+	selectedPlan,
+	selectedPrice,
+}) => {
 	const [formData, setFormData] = useState({
 		name: "",
 		email: "",
@@ -18,25 +23,11 @@ const SubscriptionModal = ({ isOpen, onClose, selectedPlan }) => {
 		}));
 	};
 
-	// Get plan price based on selected plan
-	const getPlanPrice = (plan) => {
-		switch (plan) {
-			case "Basic":
-				return 100000; // ₦100,000
-			case "Standard":
-				return 125000; // ₦125,000
-			case "Premium":
-				return 150000; // ₦150,000
-			default:
-				return 0;
-		}
-	};
-
 	const config = {
 		reference: new Date().getTime().toString(),
 		email: formData.email,
-		amount: getPlanPrice(selectedPlan) * 100, // Convert to kobo
-		publicKey: import.meta.env.VITE_PAYSTACK_TEST_KEY,
+		amount: selectedPrice * 100, // Convert to kobo
+		publicKey: import.meta.env.VITE_PAYSTACK_PUBLIC_KEY,
 		metadata: {
 			name: formData.name,
 			phone: formData.phone,
@@ -76,129 +67,218 @@ const SubscriptionModal = ({ isOpen, onClose, selectedPlan }) => {
 	if (!isOpen) return null;
 
 	return (
-		<div className="modal-overlay">
-			<div className="container d-flex justify-content-center align-items-center min-vh-100">
+		<div
+			style={{
+				position: "fixed",
+				top: 0,
+				left: 0,
+				right: 0,
+				bottom: 0,
+				backgroundColor: "rgba(0, 0, 0, 0.5)",
+				display: "flex",
+				justifyContent: "center",
+				alignItems: "center",
+				zIndex: 9999,
+				overflow: "auto",
+				padding: "20px",
+			}}
+		>
+			<div
+				style={{
+					backgroundColor: "#ffffff",
+					color: "#000000",
+					maxWidth: "600px",
+					width: "100%",
+					borderRadius: "8px",
+					boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
+					position: "relative",
+					padding: "20px",
+					margin: "auto",
+				}}
+			>
 				<div
-					className="modal-content"
 					style={{
-						backgroundColor: "#ffffff",
-						color: "#000000",
-						maxWidth: "600px",
-						width: "100%",
+						display: "flex",
+						justifyContent: "space-between",
+						alignItems: "center",
+						marginBottom: "20px",
+						paddingBottom: "10px",
+						borderBottom: "1px solid #eee",
 					}}
 				>
-					<div className="modal-header">
-						<h3 style={{ color: "#000000" }}>{selectedPlan} Plan</h3>
-						<button
-							className="close-button"
-							onClick={onClose}
-							style={{ color: "#000000" }}
+					<h3 style={{ color: "#000000", margin: 0 }}>{selectedPlan} Plan</h3>
+					<button
+						onClick={onClose}
+						style={{
+							background: "none",
+							border: "none",
+							color: "#000000",
+							cursor: "pointer",
+							padding: "5px",
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "center",
+						}}
+					>
+						<FaTimes />
+					</button>
+				</div>
+				<form onSubmit={handleSubmit}>
+					<div style={{ marginBottom: "15px" }}>
+						<label
+							htmlFor="plan"
+							style={{
+								color: "#000000",
+								display: "block",
+								marginBottom: "5px",
+							}}
 						>
-							<FaTimes />
+							Selected Plan:
+						</label>
+						<input
+							type="text"
+							id="plan"
+							value={`${selectedPlan} Plan - ₦${selectedPrice.toLocaleString()}`}
+							disabled
+							style={{
+								width: "100%",
+								padding: "8px",
+								borderRadius: "4px",
+								border: "1px solid #ddd",
+								backgroundColor: "#f5f5f5",
+								color: "#6c757d",
+							}}
+						/>
+					</div>
+					<div style={{ marginBottom: "15px" }}>
+						<label
+							htmlFor="name"
+							style={{
+								color: "#000000",
+								display: "block",
+								marginBottom: "5px",
+							}}
+						>
+							Full Name:
+						</label>
+						<input
+							type="text"
+							id="name"
+							name="name"
+							value={formData.name}
+							onChange={handleChange}
+							required
+							style={{
+								width: "100%",
+								padding: "8px",
+								borderRadius: "4px",
+								border: "1px solid #ddd",
+								backgroundColor: "#ffffff",
+								color: "#000000",
+							}}
+						/>
+					</div>
+					<div style={{ marginBottom: "15px" }}>
+						<label
+							htmlFor="email"
+							style={{
+								color: "#000000",
+								display: "block",
+								marginBottom: "5px",
+							}}
+						>
+							Email Address:
+						</label>
+						<input
+							type="email"
+							id="email"
+							name="email"
+							value={formData.email}
+							onChange={handleChange}
+							required
+							style={{
+								width: "100%",
+								padding: "8px",
+								borderRadius: "4px",
+								border: "1px solid #ddd",
+								backgroundColor: "#ffffff",
+								color: "#000000",
+							}}
+						/>
+					</div>
+					<div style={{ marginBottom: "15px" }}>
+						<label
+							htmlFor="phone"
+							style={{
+								color: "#000000",
+								display: "block",
+								marginBottom: "5px",
+							}}
+						>
+							Phone Number:
+						</label>
+						<input
+							type="tel"
+							id="phone"
+							name="phone"
+							value={formData.phone}
+							onChange={handleChange}
+							required
+							style={{
+								width: "100%",
+								padding: "8px",
+								borderRadius: "4px",
+								border: "1px solid #ddd",
+								backgroundColor: "#ffffff",
+								color: "#000000",
+							}}
+						/>
+					</div>
+					<div style={{ marginBottom: "15px" }}>
+						<label
+							htmlFor="comment"
+							style={{
+								color: "#000000",
+								display: "block",
+								marginBottom: "5px",
+							}}
+						>
+							Additional Comments:
+						</label>
+						<textarea
+							id="comment"
+							name="comment"
+							value={formData.comment}
+							onChange={handleChange}
+							rows="4"
+							style={{
+								width: "100%",
+								padding: "8px",
+								borderRadius: "4px",
+								border: "1px solid #ddd",
+								backgroundColor: "#ffffff",
+								color: "#000000",
+							}}
+						/>
+					</div>
+					<div style={{ marginTop: "20px" }}>
+						<button
+							type="submit"
+							style={{
+								width: "100%",
+								padding: "12px",
+								backgroundColor: "#007bff",
+								color: "white",
+								border: "none",
+								borderRadius: "4px",
+								cursor: "pointer",
+								fontSize: "16px",
+							}}
+						>
+							Pay ₦{selectedPrice.toLocaleString()}
 						</button>
 					</div>
-					<form onSubmit={handleSubmit} className="subscription-form">
-						<div className="form-group">
-							<label
-								htmlFor="plan"
-								className="form-label"
-								style={{ color: "#000000" }}
-							>
-								Selected Plan:
-							</label>
-							<input
-								type="text"
-								id="plan"
-								value={`${selectedPlan} Plan - ₦${getPlanPrice(
-									selectedPlan
-								).toLocaleString()}`}
-								disabled
-								className="form-control"
-								style={{ backgroundColor: "#f5f5f5", color: "#6c757d" }}
-							/>
-						</div>
-						<div className="form-group">
-							<label
-								htmlFor="name"
-								className="form-label"
-								style={{ color: "#000000" }}
-							>
-								Full Name:
-							</label>
-							<input
-								type="text"
-								id="name"
-								name="name"
-								value={formData.name}
-								onChange={handleChange}
-								className="form-control"
-								required
-								style={{ backgroundColor: "#ffffff", color: "#000000" }}
-							/>
-						</div>
-						<div className="form-group">
-							<label
-								htmlFor="email"
-								className="form-label"
-								style={{ color: "#000000" }}
-							>
-								Email Address:
-							</label>
-							<input
-								type="email"
-								id="email"
-								name="email"
-								value={formData.email}
-								onChange={handleChange}
-								className="form-control"
-								required
-								style={{ backgroundColor: "#ffffff", color: "#000000" }}
-							/>
-						</div>
-						<div className="form-group">
-							<label
-								htmlFor="phone"
-								className="form-label"
-								style={{ color: "#000000" }}
-							>
-								Phone Number:
-							</label>
-							<input
-								type="tel"
-								id="phone"
-								name="phone"
-								value={formData.phone}
-								onChange={handleChange}
-								className="form-control"
-								required
-								style={{ backgroundColor: "#ffffff", color: "#000000" }}
-							/>
-						</div>
-						<div className="form-group">
-							<label
-								htmlFor="comment"
-								className="form-label"
-								style={{ color: "#000000" }}
-							>
-								Additional Comments:
-							</label>
-							<textarea
-								id="comment"
-								name="comment"
-								value={formData.comment}
-								onChange={handleChange}
-								className="form-control"
-								rows="4"
-								style={{ backgroundColor: "#ffffff", color: "#000000" }}
-							/>
-						</div>
-						<div className="form-actions">
-							<button type="submit" className="btn btn-primary">
-								Pay ₦{getPlanPrice(selectedPlan).toLocaleString()}
-							</button>
-						</div>
-					</form>
-				</div>
+				</form>
 			</div>
 		</div>
 	);

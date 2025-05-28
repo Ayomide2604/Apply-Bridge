@@ -1,16 +1,16 @@
-import { useState } from "react";
+import React from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import { formatNumber } from "../utils/priceFormatter";
-import SubscriptionModal from "./SubscriptionModal";
 
-const PriceCard = ({ id, title, description, price, features, popular }) => {
-	const [isModalOpen, setIsModalOpen] = useState(false);
-
-	const handleSubscribe = (e) => {
-		e.preventDefault();
-		setIsModalOpen(true);
-	};
-
+const PriceCard = ({
+	id,
+	title,
+	description,
+	price,
+	features,
+	popular,
+	onSubscribe,
+}) => {
 	return (
 		<div>
 			{popular && <div className="popular-badge">Most Popular</div>}
@@ -31,16 +31,13 @@ const PriceCard = ({ id, title, description, price, features, popular }) => {
 				))}
 			</ul>
 
-			<button onClick={handleSubscribe} className="btn btn-light">
+			<button
+				onClick={() => onSubscribe(title, price)}
+				className="btn btn-light"
+			>
 				Subscribe Now
 				<i className="bi bi-arrow-right"></i>
 			</button>
-
-			<SubscriptionModal
-				isOpen={isModalOpen}
-				onClose={() => setIsModalOpen(false)}
-				selectedPlan={title}
-			/>
 		</div>
 	);
 };

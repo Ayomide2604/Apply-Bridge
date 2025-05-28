@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import PriceCard from "../components/PriceCard";
+import SubscriptionModal from "../components/SubscriptionModal";
 
 const prices = [
 	{
@@ -7,7 +8,7 @@ const prices = [
 		title: "Basic",
 		description:
 			"Get started with our basic job application service. Perfect for those looking to apply to a few jobs each month.",
-		price: 60000,
+		price: 60000 ,
 		features: [
 			"30 Applications",
 			"Basic CV review",
@@ -36,7 +37,7 @@ const prices = [
 			"Maximum applications with premium support. Best for serious job seekers.",
 		price: 135000,
 		features: [
-			"85 Applications",
+			"80 Applications",
 			"Premium CV review",
 			"Priority job application assistance",
 			"24/7 Priority support",
@@ -47,6 +48,9 @@ const prices = [
 const Pricing = () => {
 	const [activePricing, setActivePricing] = useState("Standard");
 	const [isMobile, setIsMobile] = useState(window.innerWidth < 992);
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [selectedPlan, setSelectedPlan] = useState("");
+	const [selectedPrice, setSelectedPrice] = useState(0);
 	const pricingRefs = useRef([]);
 
 	useEffect(() => {
@@ -100,8 +104,14 @@ const Pricing = () => {
 		setActivePricing(pricing);
 	};
 
+	const handleSubscribe = (plan, price) => {
+		setSelectedPlan(plan);
+		setSelectedPrice(price);
+		setIsModalOpen(true);
+	};
+
 	return (
-		<section id="pricing" className="pricing section">
+		<section id="pricing" className="pricing section container">
 			<div className="container section-title" data-aos="fade-up">
 				<h2>Pricing</h2>
 				<p>
@@ -136,12 +146,20 @@ const Pricing = () => {
 									price={price.price}
 									features={price.features}
 									popular={price.popular}
+									onSubscribe={() => handleSubscribe(price.title, price.price)}
 								/>
 							</div>
 						</div>
 					))}
 				</div>
 			</div>
+
+			<SubscriptionModal
+				isOpen={isModalOpen}
+				onClose={() => setIsModalOpen(false)}
+				selectedPlan={selectedPlan}
+				selectedPrice={selectedPrice}
+			/>
 		</section>
 	);
 };
