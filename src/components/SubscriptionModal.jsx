@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { FaTimes } from "react-icons/fa";
-import { usePaystackPayment } from "react-paystack";
+import emailjs from "@emailjs/browser";
+import axios from "axios";
 
 const SubscriptionModal = ({
 	isOpen,
@@ -8,6 +9,8 @@ const SubscriptionModal = ({
 	selectedPlan,
 	selectedPrice,
 }) => {
+	const form = useRef();
+	const [isLoading, setIsLoading] = useState(false);
 	const [formData, setFormData] = useState({
 		name: "",
 		email: "",
@@ -23,45 +26,92 @@ const SubscriptionModal = ({
 		}));
 	};
 
-	const config = {
-		reference: new Date().getTime().toString(),
-		email: formData.email,
-		amount: selectedPrice * 100, // Convert to kobo
-		publicKey: import.meta.env.VITE_PAYSTACK_PUBLIC_KEY,
-		metadata: {
-			name: formData.name,
-			phone: formData.phone,
-			plan: selectedPlan,
-			comment: formData.comment,
-		},
+	const sendEmailNotification = async (reference) => {
+		try {
+			const templateParams = {
+				to_email: [formData.email, import.meta.env.VITE_ADMIN_EMAIL],
+				from_name: formData.name,
+				from_email: formData.email,
+				phone: formData.phone,
+				plan: selectedPlan,
+				amount: selectedPrice,
+				comment: formData.comment,
+				reference: reference,
+			};
+
+			await emailjs.send(
+				import.meta.env.VITE_EMAILJS_SERVICE_ID,
+				import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+				templateParams,
+				import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+			);
+
+			console.log("Email sent successfully!");
+		} catch (error) {
+			console.error("Failed to send email:", error);
+		}
 	};
 
-	const initializePayment = usePaystackPayment(config);
+	const initializePayment = async () => {
+		try {
+			setIsLoading(true);
 
-	const onSuccess = (reference) => {
-		// Implementation for whatever you want to do with reference and after success call.
-		console.log("Payment successful!", reference);
-		onClose();
+			// Initialize transaction
+			const response = await axios.post(
+				"https://api.paystack.co/transaction/initialize",
+				{
+					email: formData.email,
+					amount: selectedPrice * 100, // Convert to kobo
+					callback_url: window.location.origin + "/payment-callback",
+					metadata: {
+						custom_fields: [
+							{
+								display_name: "Name",
+								variable_name: "name",
+								value: formData.name,
+							},
+							{
+								display_name: "Phone",
+								variable_name: "phone",
+								value: formData.phone,
+							},
+							{
+								display_name: "Plan",
+								variable_name: "plan",
+								value: selectedPlan,
+							},
+							{
+								display_name: "Price",
+								variable_name: "price",
+								value: selectedPrice,
+							},
+							{
+								display_name: "Comment",
+								variable_name: "comment",
+								value: formData.comment,
+							},
+						],
+					},
+				},
+				{
+					headers: {
+						Authorization: `Bearer ${import.meta.env.VITE_PAYSTACK_SECRET_KEY}`,
+						"Content-Type": "application/json",
+					},
+				}
+			);
+
+			// Redirect to Paystack payment page
+			window.location.href = response.data.data.authorization_url;
+		} catch (error) {
+			console.error("Payment initialization failed:", error);
+			setIsLoading(false);
+		}
 	};
 
-	const onPaymentClose = () => {
-		// Implementation for whatever you want to do when the Paystack dialog closed.
-		console.log("Payment cancelled");
-	};
-
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		// Clear form data
-		setFormData({
-			name: "",
-			email: "",
-			phone: "",
-			comment: "",
-		});
-		// Close modal
-		onClose();
-		// Initialize payment
-		initializePayment(onSuccess, onPaymentClose);
+		await initializePayment();
 	};
 
 	if (!isOpen) return null;
@@ -123,7 +173,7 @@ const SubscriptionModal = ({
 						<FaTimes />
 					</button>
 				</div>
-				<form onSubmit={handleSubmit}>
+				<form ref={form} onSubmit={handleSubmit}>
 					<div style={{ marginBottom: "15px" }}>
 						<label
 							htmlFor="plan"
@@ -264,18 +314,21 @@ const SubscriptionModal = ({
 					<div style={{ marginTop: "20px" }}>
 						<button
 							type="submit"
+							disabled={isLoading}
 							style={{
 								width: "100%",
 								padding: "12px",
-								backgroundColor: "#007bff",
+								backgroundColor: isLoading ? "#cccccc" : "#007bff",
 								color: "white",
 								border: "none",
 								borderRadius: "4px",
-								cursor: "pointer",
+								cursor: isLoading ? "not-allowed" : "pointer",
 								fontSize: "16px",
 							}}
 						>
-							Pay ₦{selectedPrice.toLocaleString()}
+							{isLoading
+								? "Processing..."
+								: `Pay ₦${selectedPrice.toLocaleString()}`}
 						</button>
 					</div>
 				</form>
