@@ -6,7 +6,7 @@ const WhatsAppButton = () => {
 	const [currentTime, setCurrentTime] = useState("");
 	const [displayedMessage, setDisplayedMessage] = useState("");
 	const [isTyping, setIsTyping] = useState(false);
-	const phoneNumber = "+2348126660484";
+	const phoneNumber = "+2348104590152";
 	const welcomeMessage = "Hi! 👋 How can I help you today?";
 
 	useEffect(() => {

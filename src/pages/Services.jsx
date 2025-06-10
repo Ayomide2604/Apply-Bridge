@@ -1,4 +1,9 @@
-import { FaFileAlt, FaBriefcase, FaPenFancy, FaRegComments } from "react-icons/fa";
+import {
+	FaFileAlt,
+	FaBriefcase,
+	FaPenFancy,
+	FaRegComments,
+} from "react-icons/fa";
 import Service from "../components/Service";
 
 const servicesData = [
