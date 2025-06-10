@@ -51,7 +51,7 @@ const Header = () => {
 	}, [menuOpen]);
 
 	const navItems = [
-		{ id: "hero", label: "Home" },
+		{ id: "hero", label: "Home", to: "/" },
 		{ id: "about", label: "About" },
 		// { id: "features", label: "Features" },
 		{ id: "services", label: "Services" },
@@ -82,14 +82,19 @@ const Header = () => {
 					<ul className="mx-5">
 						{navItems.map((item) => (
 							<li key={item.id}>
-								<a
-									href={`#${item.id}`}
+								<Link
+									to={item.to ? item.to : `#${item.id}`}
 									className={`${activeSection === item.id ? "active" : ""} ${
 										item.isButton ? "contact-button" : ""
 									}`}
 									ref={(el) => (navRefs.current[item.id] = el)}
 									onClick={(e) => {
 										e.preventDefault();
+										if (item.to) {
+											window.location.href = item.to;
+											setMenuOpen(false);
+											return;
+										}
 										const element = document.getElementById(item.id);
 										if (element) {
 											element.scrollIntoView({ behavior: "smooth" });
@@ -113,7 +118,7 @@ const Header = () => {
 									}}
 								>
 									{item.label}
-								</a>
+								</Link>
 							</li>
 						))}
 					</ul>
