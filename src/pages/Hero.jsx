@@ -18,16 +18,18 @@ const Hero = () => {
 
 							<h1 className="mb-4">
 								Find Your <br />
-								Dream Healthcare Job <br />
-								<span className="accent-text">in Australia or the UK</span>
+								Dream Job <br />
+								<span className="accent-text">
+									in the USA, UK, Canada, or Australia
+								</span>
 							</h1>
 
 							<p className="mb-4 mb-md-5">
 								We understand the stress of job applications, especially when
-								looking abroad. Our service is dedicated to helping healthcare
-								professionals like you by simplifying and assisting with the
-								application process for opportunities in Australia and the UK,
-								so you can focus on your vital work.
+								looking abroad. Our service is dedicated to helping professionals
+								like you by simplifying and assisting with the application process
+								for opportunities in the USA, UK, Canada, and Australia, so you can
+								focus on your career.
 							</p>
 
 							<div className="hero-buttons">

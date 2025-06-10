@@ -9,35 +9,59 @@ const About = () => {
 					<div className="col-xl-5" data-aos="fade-up" data-aos-delay="200">
 						<span className="about-meta">OUR MISSION</span>
 						<h2 className="about-title">
-							Simplifying Healthcare Job Applications for Australia & the UK
+							Simplifying Job Applications for the USA, UK, Canada & Australia
 						</h2>
 						<p className="about-description">
-							We are dedicated to supporting healthcare professionals in their
-							journey to work abroad. Our service streamlines the job
-							application process for positions in Australia and the UK,
-							providing expert CV writing, supporting statement preparation, and
-							application assistance. We help qualified candidates present
-							themselves effectively to secure their desired roles.
+							We are dedicated to supporting professionals in their journey to
+							work abroad. Our service streamlines the job application process for
+							positions in the USA, UK, Canada, and Australia, providing expert CV
+							writing, cover letter and statement preparation, and application
+							assistance. We help qualified candidates present themselves
+							effectively to secure their desired roles in any industry.
 						</p>
 
 						<div className="row feature-list-wrapper">
 							<div className="col-md-6">
 								<ul className="feature-list">
 									<li className="d-flex align-items-center">
-										<FaCheckCircle /> Professional CV Writing
+										<span style={{ display: "flex", alignItems: "center" }}>
+											<FaCheckCircle
+												size={24}
+												style={{ minWidth: 24, minHeight: 24 }}
+											/>
+										</span>{" "}
+										Professional CV Writing
 									</li>
 									<li className="d-flex align-items-center">
-										<FaCheckCircle /> Supporting Statement Preparation
+										<span style={{ display: "flex", alignItems: "center" }}>
+											<FaCheckCircle
+												size={24}
+												style={{ minWidth: 24, minHeight: 24 }}
+											/>
+										</span>{" "}
+										Cover Letter & Statement Preparation
 									</li>
 								</ul>
 							</div>
 							<div className="col-md-6">
 								<ul className="feature-list">
-									<li>
-										<FaCheckCircle /> Job Application Support
+									<li className="d-flex align-items-center">
+										<span style={{ display: "flex", alignItems: "center" }}>
+											<FaCheckCircle
+												size={24}
+												style={{ minWidth: 24, minHeight: 24 }}
+											/>
+										</span>{" "}
+										Job Application Support
 									</li>
-									<li>
-										<FaCheckCircle /> Expert Guidance & Feedback
+									<li className="d-flex align-items-center">
+										<span style={{ display: "flex", alignItems: "center" }}>
+											<FaCheckCircle
+												size={24}
+												style={{ minWidth: 24, minHeight: 24 }}
+											/>
+										</span>{" "}
+										Expert Guidance & Feedback
 									</li>
 								</ul>
 							</div>

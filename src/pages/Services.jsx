@@ -1,4 +1,4 @@
-import { FaFileAlt, FaBriefcase } from "react-icons/fa";
+import { FaFileAlt, FaBriefcase, FaPenFancy, FaRegComments } from "react-icons/fa";
 import Service from "../components/Service";
 
 const servicesData = [
@@ -15,6 +15,20 @@ const servicesData = [
 		title: "Job Application",
 		description:
 			"Personalized guidance on job search strategies, application timing, and targeting the right opportunities. We help you navigate the job market effectively and increase your chances of success.",
+	},
+	{
+		id: 3,
+		icon: FaPenFancy,
+		title: "Cover Letter & Statement Writing",
+		description:
+			"Expertly crafted cover letters and personal statements tailored to your target roles, helping you make a strong first impression with employers.",
+	},
+	{
+		id: 4,
+		icon: FaRegComments,
+		title: "Expert Guidance & Feedback",
+		description:
+			"Personalized support and actionable feedback throughout your job search journey, helping you make informed decisions and maximize your chances of success.",
 	},
 ];
 
