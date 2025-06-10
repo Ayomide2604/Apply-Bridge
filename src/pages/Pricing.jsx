@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import PriceCard from "../components/PriceCard";
-import SubscriptionModal from "../components/SubscriptionModal";
 
 const prices = [
 	{
@@ -15,6 +14,7 @@ const prices = [
 			"Personalized job application assistance",
 			"Priority Email and chat support",
 		],
+		link: "https://paystack.shop/pay/go0pwoj6ci",
 	},
 	{
 		id: 2,
@@ -29,6 +29,7 @@ const prices = [
 			"Priority email & chat support",
 		],
 		popular: true,
+		link: "https://paystack.shop/pay/ebgkwbv0e4",
 	},
 	{
 		id: 3,
@@ -42,15 +43,13 @@ const prices = [
 			"Dedicated job application manager",
 			"24/7 priority support",
 		],
+		link: "https://paystack.shop/pay/-2bwy3wk9f",
 	},
 ];
 
 const Pricing = () => {
 	const [activePricing, setActivePricing] = useState("Standard");
 	const [isMobile, setIsMobile] = useState(window.innerWidth < 992);
-	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [selectedPlan, setSelectedPlan] = useState("");
-	const [selectedPrice, setSelectedPrice] = useState(0);
 	const pricingRefs = useRef([]);
 
 	useEffect(() => {
@@ -104,12 +103,6 @@ const Pricing = () => {
 		setActivePricing(pricing);
 	};
 
-	const handleSubscribe = (plan, price) => {
-		setSelectedPlan(plan);
-		setSelectedPrice(price);
-		setIsModalOpen(true);
-	};
-
 	return (
 		<section id="pricing" className="pricing section container">
 			<div className="container section-title" data-aos="fade-up">
@@ -144,22 +137,15 @@ const Pricing = () => {
 									title={price.title}
 									description={price.description}
 									price={price.price}
+									link={price.link}
 									features={price.features}
 									popular={price.popular}
-									onSubscribe={() => handleSubscribe(price.title, price.price)}
 								/>
 							</div>
 						</div>
 					))}
 				</div>
 			</div>
-
-			<SubscriptionModal
-				isOpen={isModalOpen}
-				onClose={() => setIsModalOpen(false)}
-				selectedPlan={selectedPlan}
-				selectedPrice={selectedPrice}
-			/>
 		</section>
 	);
 };

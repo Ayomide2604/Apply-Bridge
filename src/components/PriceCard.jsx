@@ -1,4 +1,3 @@
-import React from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import { formatNumber } from "../utils/priceFormatter";
 
@@ -8,9 +7,10 @@ const PriceCard = ({
 	description,
 	price,
 	features,
+	link,
 	popular,
-	onSubscribe,
 }) => {
+	console.log(link);
 	return (
 		<div>
 			{popular && <div className="popular-badge">Most Popular</div>}
@@ -31,13 +31,14 @@ const PriceCard = ({
 				))}
 			</ul>
 
-			<button
-				onClick={() => onSubscribe(title, price)}
+			<a
+				href={link}
 				className="btn btn-light"
+				style={{ display: "inline-flex", alignItems: "center", gap: 8 }}
 			>
 				Subscribe Now
 				<i className="bi bi-arrow-right"></i>
-			</button>
+			</a>
 		</div>
 	);
 };
