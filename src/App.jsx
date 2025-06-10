@@ -9,17 +9,12 @@ function App() {
 	return (
 		<>
 			<Header />
-			<Routes>
-				<Route
-					path="/"
-					element={
-						<main className="main" style={{ minHeight: "100vh" }}>
-							<HomeScreen />
-						</main>
-					}
-				/>
-				<Route path="/payment-callback" element={<PaymentCallback />} />
-			</Routes>
+			<main className="main" style={{ minHeight: "100vh" }}>
+				<Routes>
+					<Route path="/" element={<HomeScreen />} />
+					<Route path="/payment-callback" element={<PaymentCallback />} />
+				</Routes>
+			</main>
 			<Footer />
 			<WhatsAppButton />
 		</>
