@@ -3,7 +3,7 @@ import Header from "./components/Header";
 import WhatsAppButton from "./components/WhatsAppButton";
 import { Routes, Route } from "react-router-dom";
 import HomeScreen from "./screens/HomeScreen";
-import Applications from "./components/Applications";
+import Applications from "./pages/Applications";
 
 function App() {
 	return (
