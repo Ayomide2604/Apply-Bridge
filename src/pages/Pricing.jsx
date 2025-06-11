@@ -48,13 +48,21 @@ const prices = [
 ];
 
 const Pricing = () => {
-	const [activePricing, setActivePricing] = useState("Standard");
+	const [activePricing, setActivePricing] = useState(() => {
+		if (window.innerWidth < 992) return "Standard";
+		return prices[1]?.title || "";
+	});
 	const [isMobile, setIsMobile] = useState(window.innerWidth < 992);
 	const pricingRefs = useRef([]);
 
 	useEffect(() => {
 		const handleResize = () => {
 			setIsMobile(window.innerWidth < 992);
+			if (window.innerWidth >= 992) {
+				setActivePricing(prices[1]?.title || "");
+			} else {
+				setActivePricing("Standard");
+			}
 		};
 
 		window.addEventListener("resize", handleResize);
@@ -63,7 +71,7 @@ const Pricing = () => {
 
 	useEffect(() => {
 		if (!isMobile) {
-			setActivePricing("Standard");
+			setActivePricing(prices[1]?.title || "");
 			return;
 		}
 

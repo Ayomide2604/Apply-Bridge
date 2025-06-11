@@ -1,0 +1,19 @@
+[
+  {
+    "firstName": "Alice",
+    "lastName": "Johnson",
+    "code": "1234",
+    "sheetUrl": "/src/assets/alice_jobs.csv",
+    "email": "alice.johnson@email.com",
+    "phone": "+1 555-123-4567"
+  },
+  {
+    "firstName": "Bob",
+    "lastName": "Williams",
+    "code": "4321",
+    "sheetUrl": "/src/assets/bob_jobs.csv",
+    "email": "bob.williams@email.com",
+    "phone": "+1 555-987-6543"
+  }
+ 
+]
