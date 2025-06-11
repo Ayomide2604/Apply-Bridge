@@ -7,7 +7,7 @@ import ApplicationsTable from "../components/ApplicationsTable";
 const PAGE_SIZE_OPTIONS = [10, 20, 30];
 const SESSION_KEY = "client_applications_session";
 const SESSION_EXPIRY_MINUTES = 30;
-const SHEET_NAME = "applicationAlways";
+const SHEET_NAME = "application";
 
 const Applications = () => {
 	const [code, setCode] = useState("");
@@ -49,9 +49,12 @@ const Applications = () => {
 		setClient(null);
 		setPage(1);
 		try {
+			// Always use root-relative path for both dev and prod
 			const res = await fetch("/client_sheets.json");
 			if (!res.ok) {
-				throw new Error(`Failed to fetch client_sheets.json: ${res.status} ${res.statusText}`);
+				throw new Error(
+					`Failed to fetch client_sheets.json: ${res.status} ${res.statusText}`
+				);
 			}
 			const clients = await res.json();
 			const found = clients.find((c) => c.code === sessionCode.trim());
@@ -61,13 +64,26 @@ const Applications = () => {
 				return;
 			}
 			setClient({ ...found });
-			// Build CSV URL from sheetId
+			// Persist session with expiry
+			const expiry = Date.now() + SESSION_EXPIRY_MINUTES * 60 * 1000;
+			localStorage.setItem(
+				SESSION_KEY,
+				JSON.stringify({ code: found.code, expiry })
+			);
+			// Build CSV URL from sheetId or use local CSV
 			let sheetUrl = found.sheetUrl;
+			// If it's a Google Sheet ID (not a URL or CSV path), build the export URL
 			if (/^[a-zA-Z0-9-_]+$/.test(sheetUrl)) {
 				sheetUrl = `https://docs.google.com/spreadsheets/d/${sheetUrl}/gviz/tq?tqx=out:csv&sheet=${SHEET_NAME}`;
 			}
 			// Fetch and parse CSV
+			console.log("Fetching job data from:", sheetUrl); // DEBUG: log the actual URL being fetched
 			const csvRes = await fetch(sheetUrl);
+			if (!csvRes.ok) {
+				throw new Error(
+					`Failed to fetch job data: ${csvRes.status} ${csvRes.statusText}`
+				);
+			}
 			const csvText = await csvRes.text();
 			// Use PapaParse for robust CSV parsing
 			const parsed = Papa.parse(csvText, {
@@ -84,8 +100,11 @@ const Applications = () => {
 			}));
 			setJobs(data);
 		} catch (err) {
-			console.error("Error loading client_sheets.json:", err);
-			if (!silent) setError("Failed to fetch data. Please try again later.");
+			console.error("Error loading client_sheets.json or job data:", err);
+			if (!silent)
+				setError(
+					"Failed to fetch data. Please check your access code, Google Sheet sharing settings, and tab name."
+				);
 		}
 		setLoading(false);
 	};

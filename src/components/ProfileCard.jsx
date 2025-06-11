@@ -1,6 +1,13 @@
 // ProfileCard.jsx
 import React from "react";
 
+const getInitials = (name) => {
+	if (!name) return "";
+	const parts = name.trim().split(" ");
+	if (parts.length === 1) return parts[0][0];
+	return parts[0][0] + parts[parts.length - 1][0];
+};
+
 const ProfileCard = ({ client, handleLogout }) => (
 	<div
 		className="profile-card"
@@ -31,12 +38,9 @@ const ProfileCard = ({ client, handleLogout }) => (
 					fontWeight: 700,
 				}}
 			>
-				{client.firstName[0]}
-				{client.lastName[0]}
+				{getInitials(client.name)}
 			</div>
-			<div style={{ fontWeight: 700, fontSize: 20 }}>
-				{client.firstName} {client.lastName}
-			</div>
+			<div style={{ fontWeight: 700, fontSize: 20 }}>{client.name}</div>
 			<div style={{ color: "#64748b", fontSize: 15, marginTop: 2 }}>
 				{client.email}
 			</div>
