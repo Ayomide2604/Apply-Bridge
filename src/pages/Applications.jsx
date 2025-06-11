@@ -50,6 +50,9 @@ const Applications = () => {
 		setPage(1);
 		try {
 			const res = await fetch("/client_sheets.json");
+			if (!res.ok) {
+				throw new Error(`Failed to fetch client_sheets.json: ${res.status} ${res.statusText}`);
+			}
 			const clients = await res.json();
 			const found = clients.find((c) => c.code === sessionCode.trim());
 			if (!found) {
@@ -81,7 +84,7 @@ const Applications = () => {
 			}));
 			setJobs(data);
 		} catch (err) {
-			console.error("Error fetching jobs:", err);
+			console.error("Error loading client_sheets.json:", err);
 			if (!silent) setError("Failed to fetch data. Please try again later.");
 		}
 		setLoading(false);
