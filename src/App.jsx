@@ -3,7 +3,7 @@ import Header from "./components/Header";
 import WhatsAppButton from "./components/WhatsAppButton";
 import { Routes, Route } from "react-router-dom";
 import HomeScreen from "./screens/HomeScreen";
-import Applications from "./pages/Applications";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
 	return (
@@ -12,7 +12,7 @@ function App() {
 			<main className="main" style={{ minHeight: "100vh" }}>
 				<Routes>
 					<Route path="/" element={<HomeScreen />} />
-					<Route path="/applications" element={<Applications />} />
+					<Route path="/dashboard" element={<Dashboard />} />
 				</Routes>
 			</main>
 			<Footer />
