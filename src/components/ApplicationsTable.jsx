@@ -62,7 +62,7 @@ const ApplicationsTable = ({
 								}}
 								onClick={() => handleSort("Company")}
 							>
-								Company Name{" "}
+								Company{" "}
 								{sortBy === "Company" && (sortDir === "asc" ? "▲" : "▼")}
 							</th>
 							<th
