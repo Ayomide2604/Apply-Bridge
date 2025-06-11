@@ -1,18 +1,5 @@
 [
-  {
-    "name": "Alice Smith",
-    "code": "alice2024",
-    "email": "alice@example.com",
-    "phone": "+1-555-1234",
-    "sheetUrl": "/src/assets/alice_jobs.csv"
-  },
-  {
-    "name": "Bob Johnson",
-    "code": "bob2024",
-    "email": "bob@example.com",
-    "phone": "+1-555-5678",
-    "sheetUrl": "/src/assets/bob_jobs.csv"
-  },
+ 
   {
     "name": "Ayomide Olowu",
     "code": "Toydap45!",
