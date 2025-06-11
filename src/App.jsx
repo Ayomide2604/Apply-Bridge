@@ -4,6 +4,7 @@ import WhatsAppButton from "./components/WhatsAppButton";
 import { Routes, Route } from "react-router-dom";
 import HomeScreen from "./screens/HomeScreen";
 import Dashboard from "./pages/Dashboard";
+import ApplicationPage from "./pages/ApplicationPage";
 
 function App() {
 	return (
@@ -13,6 +14,7 @@ function App() {
 				<Routes>
 					<Route path="/" element={<HomeScreen />} />
 					<Route path="/dashboard" element={<Dashboard />} />
+					<Route path="/application" element={<ApplicationPage />} />
 				</Routes>
 			</main>
 			<Footer />
