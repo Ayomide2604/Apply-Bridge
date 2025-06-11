@@ -12,6 +12,7 @@ const ApplicationsTable = ({
 	handleSort,
 	formatHumanDate,
 	setPage,
+	loading, // <-- add loading prop
 }) => (
 	<div className="table-card" style={{ flex: 3, minWidth: 350 }}>
 		<h2
@@ -24,7 +25,19 @@ const ApplicationsTable = ({
 		>
 			Applications ({jobs.length})
 		</h2>
-		{jobs.length === 0 ? (
+		{loading ? (
+			<div
+				style={{
+					textAlign: "center",
+					margin: "48px 0",
+					fontSize: 22,
+					color: "#1976d2",
+				}}
+			>
+				<div className="spinner" style={{ margin: "0 auto 16px auto" }} />
+				Loading applications...
+			</div>
+		) : jobs.length === 0 ? (
 			<div
 				style={{
 					textAlign: "center",

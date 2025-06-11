@@ -178,6 +178,21 @@ const Applications = () => {
 		return `${day}${suffix} ${month} ${year}`;
 	}
 
+	if (loading) {
+		return (
+			<div
+				style={{
+					display: "flex",
+					justifyContent: "center",
+					alignItems: "center",
+					minHeight: "80vh",
+				}}
+			>
+				<div className="spinner" style={{ width: 60, height: 60 }} />
+			</div>
+		);
+	}
+
 	return (
 		<div
 			style={{
@@ -294,6 +309,7 @@ const Applications = () => {
 						handleSort={handleSort}
 						formatHumanDate={formatHumanDate}
 						setPage={setPage}
+						loading={loading} // <-- pass loading state
 					/>
 				</div>
 			)}
