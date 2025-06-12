@@ -64,6 +64,13 @@ const Applications = () => {
 				return;
 			}
 			setClient({ ...found });
+
+			// FIX: If no sheetUrl, set jobs to [] and return early
+			if (!found.sheetUrl) {
+				setJobs([]);
+				setLoading(false);
+				return;
+			}
 			// Persist session with expiry
 			const expiry = Date.now() + SESSION_EXPIRY_MINUTES * 60 * 1000;
 			localStorage.setItem(

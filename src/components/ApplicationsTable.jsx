@@ -45,7 +45,7 @@ const ApplicationsTable = ({
 					fontSize: 18,
 				}}
 			>
-				No job applications found.
+				You have no job applications yet.
 			</div>
 		) : (
 			<div className="table-scroll" style={{ overflowX: "auto", marginTop: 8 }}>
